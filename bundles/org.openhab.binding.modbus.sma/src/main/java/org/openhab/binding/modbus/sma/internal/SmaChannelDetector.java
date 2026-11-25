@@ -96,7 +96,7 @@ public final class SmaChannelDetector {
      */
     public static boolean isInOperation(Optional<BigDecimal> gridRelay, boolean activePowerValid) {
         return activePowerValid
-                && gridRelay.map(v -> v.intValue() == SmaBindingConstants.GRID_RELAY_CLOSED).orElse(false);
+                && gridRelay.filter(v -> v.intValue() == SmaBindingConstants.GRID_RELAY_CLOSED).isPresent();
     }
 
     /**

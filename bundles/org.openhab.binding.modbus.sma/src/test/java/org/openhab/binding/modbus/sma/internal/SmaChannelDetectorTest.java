@@ -12,6 +12,7 @@
  */
 package org.openhab.binding.modbus.sma.internal;
 
+import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.openhab.binding.modbus.sma.internal.SmaChannel.*;
 
@@ -62,9 +63,9 @@ class SmaChannelDetectorTest {
         expectedRemoved.add(STATUS_DERATING_REASON);
         expectedRemoved.add(ENERGY_FEED_IN_TIME);
         assertEquals(expectedRemoved, d.removed());
-        assertEquals(31497, d.selected().get(AC_REACTIVE_POWER).address());
-        assertEquals(30513, d.selected().get(ENERGY_TOTAL_YIELD).address());
-        assertEquals(30953, d.selected().get(DIAGNOSTICS_INTERNAL_TEMPERATURE).address());
+        assertEquals(31497, requireNonNull(d.selected().get(AC_REACTIVE_POWER)).address());
+        assertEquals(30513, requireNonNull(d.selected().get(ENERGY_TOTAL_YIELD)).address());
+        assertEquals(30953, requireNonNull(d.selected().get(DIAGNOSTICS_INTERNAL_TEMPERATURE)).address());
         assertTrue(d.active().contains(BATTERY_STATE_OF_CHARGE));
         assertTrue(d.active().contains(METER_GRID_DRAW_POWER));
     }
@@ -80,7 +81,7 @@ class SmaChannelDetectorTest {
                 METER_GRID_FEED_IN_ENERGY, STATUS_RUN_STATUS, STATUS_EVENT_NUMBER));
         assertEquals(expectedRemoved, d.removed());
         // 31497 is listed for this device but NaN, the old address 30805 delivers the value
-        assertEquals(30805, d.selected().get(AC_REACTIVE_POWER).address());
+        assertEquals(30805, requireNonNull(d.selected().get(AC_REACTIVE_POWER)).address());
     }
 
     @Test

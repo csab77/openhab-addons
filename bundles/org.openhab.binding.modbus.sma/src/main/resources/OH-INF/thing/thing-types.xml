@@ -646,7 +646,7 @@
 	</channel-type>
 
 	<channel-type id="sma-battery-state-of-charge">
-		<item-type>Number:Dimensionless</item-type>
+		<item-type unitHint="%">Number:Dimensionless</item-type>
 		<label>Battery State of Charge</label>
 		<tags>
 			<tag>Measurement</tag>
@@ -712,7 +712,7 @@
 	</channel-type>
 
 	<channel-type id="sma-battery-capacity">
-		<item-type>Number:Dimensionless</item-type>
+		<item-type unitHint="%">Number:Dimensionless</item-type>
 		<label>Battery Capacity</label>
 		<tags>
 			<tag>Measurement</tag>
