@@ -110,8 +110,7 @@ public class SmaInverterHandler extends BaseModbusThingHandler {
     public void modbusInitialize() {
         config = getConfigAs(SmaConfiguration.class);
         if (config.refresh < 1 || config.slowRefresh < 1 || config.maxTries < 1 || config.mppTrackers < 0) {
-            updateStatus(ThingStatusDetail.CONFIGURATION_ERROR,
-                    "refresh, slowRefresh and maxTries must be positive, mppTrackers must not be negative");
+            updateStatus(ThingStatusDetail.CONFIGURATION_ERROR, "@text/offline.configuration-error");
             return;
         }
         declared = SmaChannelDetector.declaredChannels(thing.getThingTypeUID().getId());
@@ -302,7 +301,7 @@ public class SmaInverterHandler extends BaseModbusThingHandler {
         if (gen != generation) {
             return;
         }
-        updateStatus(ThingStatusDetail.COMMUNICATION_ERROR, reason);
+        updateStatus(ThingStatusDetail.COMMUNICATION_ERROR, communicationError(reason));
         retryJob = scheduler.schedule(() -> {
             if (gen == generation) {
                 startDetection(gen);
@@ -439,7 +438,7 @@ public class SmaInverterHandler extends BaseModbusThingHandler {
             }
         } else {
             logger.debug("{}: reading {} failed: {}", thing.getUID(), block, cause.getMessage());
-            updateStatus(ThingStatusDetail.COMMUNICATION_ERROR, cause.getMessage());
+            updateStatus(ThingStatusDetail.COMMUNICATION_ERROR, communicationError(cause.getMessage()));
         }
     }
 
@@ -487,6 +486,11 @@ public class SmaInverterHandler extends BaseModbusThingHandler {
     }
 
     // ---------------------------------------------------------------------------------------------------------
+
+    /** Translatable status description for a communication error. */
+    private static String communicationError(@Nullable String reason) {
+        return "@text/offline.communication-error [\"" + (reason == null ? "" : reason.replace("\"", "'")) + "\"]";
+    }
 
     /** Read request; SMA register numbers are sent as they are (no offset). */
     private ModbusReadRequestBlueprint request(int address, int length, boolean holding) {

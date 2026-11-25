@@ -54,7 +54,7 @@ public enum SmaChannel {
     STATUS_EVENT_NUMBER("status", "event-number", "sma-status-event-number", PollClass.FAST, NanPolicy.UNDEF,
             Detection.PERMANENT, false, false, null, reg(30247, UINT32, Format.FIX0)),
     STATUS_GRID_CONNECTION("status", "grid-connection", "sma-status-grid-connection", PollClass.SLOW, NanPolicy.UNDEF,
-            Detection.PERMANENT, false, false, null, reg(30881, UINT32, Format.TAGLIST)),
+            Detection.OPERATION, false, false, null, reg(30881, UINT32, Format.TAGLIST)),
     AC_ACTIVE_POWER("ac", "active-power", "sma-ac-active-power", PollClass.FAST, NanPolicy.ZERO, Detection.OPERATION,
             true, false, Units.WATT, reg(30775, INT32, Format.FIX0)),
     AC_ACTIVE_POWER_L1("ac", "active-power-l1", "sma-ac-active-power-l1", PollClass.FAST, NanPolicy.ZERO,
